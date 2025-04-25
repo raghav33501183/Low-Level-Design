@@ -24,19 +24,23 @@ public class ElevatorController {
         Direction currentDir = elevatorCar.elevatorDirection;
 
         if (currentDir == Direction.UP) {
-            if (floor >= elevatorCar.currentFloor && direction == Direction.UP) {
+            if (direction == Direction.DOWN) {
+                downMaxPQ.offer(floor);
+            } else if (floor >= elevatorCar.currentFloor) {
                 upMinPQ.offer(floor);
             } else {
                 pendingJobs.offer(floor);
             }
         } else if (currentDir == Direction.DOWN) {
-            if (floor <= elevatorCar.currentFloor && direction == Direction.DOWN) {
+            if (direction == Direction.UP) {
+                upMinPQ.offer(floor);
+            } else if (floor <= elevatorCar.currentFloor) {
                 downMaxPQ.offer(floor);
             } else {
                 pendingJobs.offer(floor);
             }
         } else {
-            // Elevator is idle — decide direction based on the external request
+            // Elevator is idle
             elevatorCar.elevatorDirection = direction;
             if (direction == Direction.UP) {
                 upMinPQ.offer(floor);
@@ -68,7 +72,6 @@ public class ElevatorController {
                 pendingJobs.offer(floor);
             }
         } else {
-            // Elevator idle — decide direction
             if (floor > elevatorCar.currentFloor) {
                 elevatorCar.elevatorDirection = Direction.UP;
                 upMinPQ.offer(floor);
@@ -76,6 +79,7 @@ public class ElevatorController {
                 elevatorCar.elevatorDirection = Direction.DOWN;
                 downMaxPQ.offer(floor);
             }
+            elevatorCar.elevatorState = ElevatorState.MOVING;
         }
     }
 
@@ -86,19 +90,32 @@ public class ElevatorController {
                     int nextFloor = upMinPQ.poll();
                     moveTo(nextFloor);
                 } else if (!downMaxPQ.isEmpty()) {
+                    // Add pending jobs from the opposite direction (DOWN) to the UP queue
+                    addPendingJobsToQueue(Direction.UP);
                     elevatorCar.elevatorDirection = Direction.DOWN;
-                } else {
-                    processPendingJobs();
                 }
             } else if (elevatorCar.elevatorDirection == Direction.DOWN) {
                 if (!downMaxPQ.isEmpty()) {
                     int nextFloor = downMaxPQ.poll();
                     moveTo(nextFloor);
                 } else if (!upMinPQ.isEmpty()) {
+                    // Add pending jobs from the opposite direction (UP) to the DOWN queue
+                    addPendingJobsToQueue(Direction.DOWN);
                     elevatorCar.elevatorDirection = Direction.UP;
-                } else {
-                    processPendingJobs();
                 }
+            }
+        }
+    }
+
+    private void addPendingJobsToQueue(Direction direction) {
+        // Here, you would need to transfer the pending jobs into the correct priority queue
+        if (direction == Direction.UP) {
+            while (!pendingJobs.isEmpty()) {
+                upMinPQ.add(pendingJobs.poll()); // Add pending jobs to the UP priority queue
+            }
+        } else {
+            while (!pendingJobs.isEmpty()) {
+                downMaxPQ.add(pendingJobs.poll()); // Add pending jobs to the DOWN priority queue
             }
         }
     }
@@ -108,29 +125,5 @@ public class ElevatorController {
         elevatorCar.moveElevator(elevatorCar.elevatorDirection, floor);
         elevatorCar.elevatorDoor.openDoor();
         elevatorCar.elevatorDoor.closeDoor();
-    }
-
-    private void processPendingJobs() {
-        if (pendingJobs.isEmpty()) {
-            System.out.println("Elevator " + elevatorCar.id + " no pending jobs, staying idle at floor " + elevatorCar.currentFloor);
-            elevatorCar.elevatorState = ElevatorState.IDLE;
-            return;
-        }
-
-        Queue<Integer> remainingJobs = new LinkedList<>();
-        while (!pendingJobs.isEmpty()) {
-            int floor = pendingJobs.poll();
-            if (floor > elevatorCar.currentFloor) {
-                upMinPQ.offer(floor);
-                elevatorCar.elevatorDirection = Direction.UP;
-            } else if (floor < elevatorCar.currentFloor) {
-                downMaxPQ.offer(floor);
-                elevatorCar.elevatorDirection = Direction.DOWN;
-            } else {
-                System.out.println("Already at requested floor: " + floor);
-            }
-        }
-
-        elevatorCar.elevatorState = ElevatorState.MOVING;
     }
 }

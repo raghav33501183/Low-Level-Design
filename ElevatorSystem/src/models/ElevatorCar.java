@@ -30,8 +30,8 @@ public class ElevatorCar {
         internalButtons.pressButton(destination, this);
     }
 
-    public void setDisplay() {
-        this.display.setDisplay(currentFloor, elevatorDirection);
+    public void  setDisplay() {
+        display.setDisplay(currentFloor, elevatorDirection);
     }
 
     public boolean moveElevator(Direction dir, int destinationFloor) {
@@ -39,7 +39,7 @@ public class ElevatorCar {
         if (dir == Direction.UP) {
             for (int i = startFloor; i <= destinationFloor; i++) {
 
-                this.currentFloor = startFloor;
+                this.currentFloor = i;
                 setDisplay();
                 showDisplay();
                 if (i == destinationFloor) {
@@ -51,7 +51,7 @@ public class ElevatorCar {
         if (dir == Direction.DOWN) {
             for (int i = startFloor; i >= destinationFloor; i--) {
 
-                this.currentFloor = startFloor;
+                this.currentFloor = i;
                 setDisplay();
                 showDisplay();
                 if (i == destinationFloor) {

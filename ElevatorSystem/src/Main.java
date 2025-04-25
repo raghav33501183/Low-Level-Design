@@ -55,7 +55,7 @@ public class Main {
 
         // Keep main thread alive so we can see movements
         try {
-            Thread.sleep(15000); // Let the simulation run for 15 seconds
+            Thread.sleep(5000); // Let the simulation run for 15 seconds
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
