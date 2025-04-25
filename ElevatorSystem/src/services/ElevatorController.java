@@ -63,13 +63,13 @@ public class ElevatorController {
             if (floor > elevatorCar.currentFloor) {
                 upMinPQ.offer(floor);
             } else {
-                pendingJobs.offer(floor);
+                downMaxPQ.offer(floor); // Request for a lower floor, add to downMaxPQ (already passed floor)
             }
         } else if (currentDir == Direction.DOWN) {
             if (floor < elevatorCar.currentFloor) {
                 downMaxPQ.offer(floor);
             } else {
-                pendingJobs.offer(floor);
+                upMinPQ.offer(floor); // Request for a higher floor, add to upMinPQ (already passed floor)
             }
         } else {
             if (floor > elevatorCar.currentFloor) {
@@ -90,7 +90,7 @@ public class ElevatorController {
                     int nextFloor = upMinPQ.poll();
                     moveTo(nextFloor);
                 } else if (!downMaxPQ.isEmpty()) {
-                    // Add pending jobs from the opposite direction (DOWN) to the UP queue
+                    // Add pending jobs for the unfulfilled request for UP direction to the UP queue
                     addPendingJobsToQueue(Direction.UP);
                     elevatorCar.elevatorDirection = Direction.DOWN;
                 }
@@ -99,10 +99,23 @@ public class ElevatorController {
                     int nextFloor = downMaxPQ.poll();
                     moveTo(nextFloor);
                 } else if (!upMinPQ.isEmpty()) {
-                    // Add pending jobs from the opposite direction (UP) to the DOWN queue
+                    // Add pending jobs for the unfulfilled request for DOWN direction to the DOWN queue
                     addPendingJobsToQueue(Direction.DOWN);
                     elevatorCar.elevatorDirection = Direction.UP;
                 }
+            }
+
+            try {
+                Thread.sleep(100);  // Adjust based on your use case
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();  // Handle thread interruption
+                break;
+            }
+
+            if (upMinPQ.isEmpty() && downMaxPQ.isEmpty()) {
+                System.out.println("No more requests. Elevator idle.");
+                elevatorCar.elevatorState = ElevatorState.IDLE;
+                break;  // Exit the loop if no more requests
             }
         }
     }

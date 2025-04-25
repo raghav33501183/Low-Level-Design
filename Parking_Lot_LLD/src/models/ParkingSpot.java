@@ -4,7 +4,7 @@ import models.vehicles.Vehicle;
 
 public class ParkingSpot {
 	private int id;
-	private boolean isEmpty = true;
+	private boolean isEmpty;
 	private Vehicle vehicle;
 	private double price;
 	

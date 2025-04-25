@@ -26,12 +26,12 @@ public class ElevatorCar {
         display.showDisplay();
     }
 
-    public void pressButton(int destination) {
-        internalButtons.pressButton(destination, this);
+    public void setDisplay() {
+        display.setDisplay(currentFloor, elevatorDirection);
     }
 
-    public void  setDisplay() {
-        display.setDisplay(currentFloor, elevatorDirection);
+    public void pressButton(int destination) {
+        internalButtons.pressButton(destination, this);
     }
 
     public boolean moveElevator(Direction dir, int destinationFloor) {
