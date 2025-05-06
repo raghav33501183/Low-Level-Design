@@ -46,13 +46,6 @@ public class Main {
 
         var logMessage = new LogMessage(text, logLevel, filePath, dbHost, dbPort);
         var logger = Logger.getLogger(sinkTos, logLevelNum);
-
-        switch (logLevel) {
-            case INFO -> logger.info(logMessage);
-            case ERROR -> logger.error(logMessage);
-            case DEBUG -> logger.debug(logMessage);
-            case WARN -> logger.warn(logMessage);
-            case FATAL -> logger.fatal(logMessage);
-        }
+        logger.createLog(logLevel.getLevelValue(), logMessage);
     }
 }

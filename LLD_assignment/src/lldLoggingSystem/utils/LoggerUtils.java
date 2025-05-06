@@ -9,23 +9,13 @@ import java.util.stream.Collectors;
 
 public class LoggerUtils {
 
-    private static int mapToLogLevelNumber(LogLevel logLevel) {
-        return switch (logLevel) {
-            case INFO -> 1;
-            case ERROR -> 2;
-            case DEBUG -> 3;
-            case WARN -> 4;
-            case FATAL -> 5;
-        };
-    }
-
     public static int getLogLevelFromInput(String logLevelInput) {
         if (logLevelInput == null || logLevelInput.isBlank()) {
             throw new IllegalArgumentException("Log level should be provided");
         }
 
         try {
-            return mapToLogLevelNumber(LogLevel.valueOf(logLevelInput.toUpperCase().trim()));
+            return LogLevel.valueOf(logLevelInput.toUpperCase().trim()).getLevelValue();
         } catch (Exception e) {
             throw new IllegalArgumentException("Log level should be a valid log level");
         }

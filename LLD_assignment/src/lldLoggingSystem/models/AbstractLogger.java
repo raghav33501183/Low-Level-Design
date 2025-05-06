@@ -6,6 +6,10 @@ public abstract class AbstractLogger {
     int levels;
     private AbstractLogger nextLevelLogger;
 
+    public AbstractLogger(int levels) {
+        this.levels = levels;
+    }
+
     public void setNextLevelLogger(AbstractLogger nextLevelLogger) {
         this.nextLevelLogger = nextLevelLogger;
     }

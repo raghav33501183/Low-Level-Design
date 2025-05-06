@@ -7,6 +7,5 @@ public class Main {
         NotificationDispatcher dispatcher = NotificationDispatcher.getInstance();
         dispatcher.dispatch(notification, "EMAIL");
         dispatcher.dispatch(notification, "SMS");
-        dispatcher.dispatch(notification, "PUSH");
     }
 }

@@ -30,14 +30,14 @@ public class Board {
             cells[1][i].setPiece(new Pawn(Colour.WHITE));
         }
 
-        cells[0][0].setPiece(new Rook(Colour.BLACK));
-        cells[0][1].setPiece(new Knight(Colour.BLACK));
-        cells[0][2].setPiece(new Bishop(Colour.BLACK));
-        cells[0][3].setPiece(new Queen(Colour.BLACK));
-        cells[0][4].setPiece(new King(Colour.BLACK));
-        cells[0][5].setPiece(new Bishop(Colour.BLACK));
-        cells[0][6].setPiece(new Knight(Colour.BLACK));
-        cells[0][7].setPiece(new Rook(Colour.BLACK));
+        cells[7][0].setPiece(new Rook(Colour.BLACK));
+        cells[7][1].setPiece(new Knight(Colour.BLACK));
+        cells[7][2].setPiece(new Bishop(Colour.BLACK));
+        cells[7][3].setPiece(new Queen(Colour.BLACK));
+        cells[7][4].setPiece(new King(Colour.BLACK));
+        cells[7][5].setPiece(new Bishop(Colour.BLACK));
+        cells[7][6].setPiece(new Knight(Colour.BLACK));
+        cells[7][7].setPiece(new Rook(Colour.BLACK));
 
         for (var i = 0; i < 8; ++i) {
             cells[6][i].setPiece(new Pawn(Colour.BLACK));

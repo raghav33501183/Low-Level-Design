@@ -59,7 +59,7 @@ public class ChessGame {
 
         var piece = board.getPiece(sourceRow, sourceCol);
         if (piece == null || piece.getColour() != player.getColour()) {
-            throw new IllegalArgumentException("Invalid piece selection!");
+            throw new InvalidMoveException("Invalid piece selection!");
         }
 
         return new Move(board.getCells()[sourceRow][sourceCol], destRow, destCol);

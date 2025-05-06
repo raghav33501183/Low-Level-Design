@@ -42,27 +42,7 @@ public class Logger implements Cloneable, Serializable {
         return logger;
     }
 
-    public void info(LogMessage logMessage) {
-        createLog(1, logMessage);
-    }
-
-    public void error(LogMessage logMessage) {
-        createLog(2, logMessage);
-    }
-
-    public void debug(LogMessage logMessage) {
-        createLog(3, logMessage);
-    }
-
-    public void warn(LogMessage logMessage) {
-        createLog(4, logMessage);
-    }
-
-    public void fatal(LogMessage logMessage) {
-        createLog(5, logMessage);
-    }
-
-    private void createLog(int level, LogMessage message) {
+    public void createLog(int level, LogMessage message) {
         chainOfLogger.logMessage(level, message, loggerSubject);
     }
 }

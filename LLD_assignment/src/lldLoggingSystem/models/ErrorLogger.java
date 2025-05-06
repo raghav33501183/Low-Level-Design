@@ -5,11 +5,11 @@ import lldLoggingSystem.service.LoggerSubject;
 public class ErrorLogger extends AbstractLogger {
 
     public ErrorLogger(int levels) {
-        this.levels = levels;
+        super(levels);
     }
 
     @Override
     protected void display(LogMessage msg, LoggerSubject loggerSubject) {
-        loggerSubject.notifyAllObserver(2, msg);
+        loggerSubject.notifyAllObserver(4, msg);
     }
 }

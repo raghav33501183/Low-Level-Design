@@ -5,7 +5,7 @@ import lldLoggingSystem.service.LoggerSubject;
 public class FatalLogger extends AbstractLogger {
 
     public FatalLogger(int levels) {
-        this.levels = levels;
+        super(levels);
     }
 
     @Override

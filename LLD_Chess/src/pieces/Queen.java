@@ -12,6 +12,6 @@ public class Queen extends Piece {
     public boolean canMove(Board board, Cell cell, int destRow, int destCol) {
         int rowDiff = Math.abs(destRow - cell.getRow());
         int colDiff = Math.abs(destCol - cell.getCol());
-        return (rowDiff == colDiff) || (cell.getRow() == destRow || cell.getCol() == destCol);
+        return rowDiff == colDiff || cell.getRow() == destRow || cell.getCol() == destCol;
     }
 }

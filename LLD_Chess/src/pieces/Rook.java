@@ -10,6 +10,6 @@ public class Rook extends Piece {
 
     @Override
     public boolean canMove(Board board, Cell cell, int destRow, int destCol) {
-        return (cell.getRow() == destRow || cell.getCol() == destCol);
+        return cell.getRow() == destRow || cell.getCol() == destCol;
     }
 }

@@ -11,9 +11,9 @@ public class LoggerSubject {
     Map<Integer, List<LogObserver>> logObservers = new HashMap<>();
 
     void addObserver(int level, LogObserver logObserver) {
-        var currentLogger = logObservers.getOrDefault(level, new ArrayList<>());
-        currentLogger.add(logObserver);
-        this.logObservers.put(level, currentLogger);
+        var logObservers = this.logObservers.getOrDefault(level, new ArrayList<>());
+        logObservers.add(logObserver);
+        this.logObservers.put(level, logObservers);
     }
 
     void removeObserver(LogObserver logObserver) {
@@ -24,7 +24,7 @@ public class LoggerSubject {
 
     public void notifyAllObserver(int level, LogMessage message) {
         for (var logObserver : logObservers.entrySet()) {
-            if (logObserver.getKey() <= level) {
+            if (logObserver.getKey() == level) {
                 logObserver.getValue().forEach(observer -> observer.log(message));
             }
         }

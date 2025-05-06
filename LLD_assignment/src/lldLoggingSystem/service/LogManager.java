@@ -9,26 +9,26 @@ import static lldLoggingSystem.service.LogObserverFactory.createLogObserver;
 class LogManager {
 
     static AbstractLogger doChaining() {
-        var infoLogger = new InfoLogger(1);
+        var debugLogger = new DebugLogger(1);
 
-        var errorLogger = new ErrorLogger(2);
+        var infoLogger = new InfoLogger(2);
+        debugLogger.setNextLevelLogger(infoLogger);
+
+        var errorLogger = new ErrorLogger(3);
         infoLogger.setNextLevelLogger(errorLogger);
 
-        var debugLogger = new DebugLogger(3);
-        errorLogger.setNextLevelLogger(debugLogger);
-
         var warnLogger = new WarnLogger(4);
-        debugLogger.setNextLevelLogger(warnLogger);
+        errorLogger.setNextLevelLogger(warnLogger);
 
         var fatalLogger = new FatalLogger(5);
         warnLogger.setNextLevelLogger(fatalLogger);
 
-        return infoLogger;
+        return debugLogger;
     }
 
     static LoggerSubject addObservers(List<SinkType> sinkTypes, int logLevel) {
         var loggerSubject = new LoggerSubject();
-        sinkTypes.forEach(sinkType -> loggerSubject.addObserver(logLevel, createLogObserver(sinkType)));
+        sinkTypes.forEach(sinkType -> loggerSubject.addObserver(logLevel, LogObserverFactory.createLogObserver(sinkType)));
         return loggerSubject;
     }
 }
