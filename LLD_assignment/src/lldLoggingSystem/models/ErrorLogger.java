@@ -10,6 +10,6 @@ public class ErrorLogger extends AbstractLogger {
 
     @Override
     protected void display(LogMessage msg, LoggerSubject loggerSubject) {
-        loggerSubject.notifyAllObserver(4, msg);
+        loggerSubject.notifyAllObserver(3, msg);
     }
 }

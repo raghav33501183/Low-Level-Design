@@ -15,7 +15,7 @@ public class SmsService implements Subscriber {
     }
 
     @Override
-    public String getId() {
+    public String   getId() {
         return id;
     }
 }

@@ -22,14 +22,12 @@ public class Logger implements Cloneable, Serializable {
     }
 
     public static Logger getLogger(List<SinkType> sinkTypes, int logLevel) {
-
         if (logger == null) {
             logger = new Logger();
             chainOfLogger = doChaining();
         }
 
         loggerSubject = addObservers(sinkTypes, logLevel);
-
         return logger;
     }
 

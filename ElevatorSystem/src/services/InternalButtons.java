@@ -18,7 +18,7 @@ public class InternalButtons {
         }
 
         if (!valid) {
-            System.out.println("Invalid floor " + destination);
+            System.out.println("Invalid floor: " + destination);
             return;
         }
 

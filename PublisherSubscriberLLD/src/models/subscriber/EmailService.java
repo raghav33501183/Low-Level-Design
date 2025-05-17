@@ -19,4 +19,3 @@ public class EmailService implements Subscriber {
         return id;
     }
 }
-

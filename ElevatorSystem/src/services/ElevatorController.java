@@ -136,7 +136,7 @@ public class ElevatorController {
     private void moveTo(int floor) {
         System.out.println("Elevator " + elevatorCar.id + " moving from floor " + elevatorCar.currentFloor + " to floor " + floor);
         elevatorCar.moveElevator(elevatorCar.elevatorDirection, floor);
-        elevatorCar.elevatorDoor.openDoor();
-        elevatorCar.elevatorDoor.closeDoor();
+        elevatorCar.openDoor();
+        elevatorCar.closeDoor();
     }
 }

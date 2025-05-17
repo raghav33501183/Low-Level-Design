@@ -45,7 +45,7 @@ public class Main {
         var text = sc.nextLine();
 
         var logMessage = new LogMessage(text, logLevel, filePath, dbHost, dbPort);
-        var logger = Logger.getLogger(sinkTos, logLevelNum);
+        var logger = Logger.getLogger(sinkTos, logLevel.getLevelValue());
         logger.createLog(logLevel.getLevelValue(), logMessage);
     }
 }

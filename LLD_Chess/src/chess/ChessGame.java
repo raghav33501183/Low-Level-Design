@@ -22,7 +22,7 @@ public class ChessGame {
             System.out.println(player.getColour() + "'s turn.");
 
             // Get move from the player
-            var move = getPlayerMove(player);
+            Move move = getPlayerMove(player);
 
             // Make the move on the board
             try {

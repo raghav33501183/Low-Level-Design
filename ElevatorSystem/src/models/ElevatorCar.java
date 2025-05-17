@@ -19,15 +19,22 @@ public class ElevatorCar {
         currentFloor = 0;
         elevatorDirection = Direction.UP;
         elevatorDoor = new ElevatorDoor();
-
     }
 
-    public void showDisplay() {
+    private void showDisplay() {
         display.showDisplay();
     }
 
-    public void setDisplay() {
+    private void setDisplay() {
         display.setDisplay(currentFloor, elevatorDirection);
+    }
+
+    public void openDoor() {
+        elevatorDoor.openDoor();
+    }
+
+    public void closeDoor() {
+        elevatorDoor.closeDoor();
     }
 
     public void pressButton(int destination) {
